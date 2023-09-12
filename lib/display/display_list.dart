@@ -62,9 +62,19 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
           sortColumnIndex: _currentSortColumn,
           sortAscending: _isAscending,
           columns: <DataColumn>[
-            const DataColumn(label: Text('Icon')),
+            const DataColumn(
+                label: SizedBox(
+              width: 50,
+              child: Text(
+                'Icon',
+                textAlign: TextAlign.center,
+              ),
+            )),
             DataColumn(
-                label: const Text('Name'),
+                label: const Text(
+                  'Name',
+                  textAlign: TextAlign.center,
+                ),
                 onSort: (columnIndex, _) {
                   setState(() {
                     _currentSortColumn = columnIndex;
@@ -80,7 +90,10 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
                   });
                 }),
             DataColumn(
-              label: const Text('Launch Date'),
+              label: const Text(
+                'Launch Date',
+                textAlign: TextAlign.center,
+              ),
               numeric: true,
               onSort: (columnIndex, _) {
                 setState(() {
@@ -100,7 +113,10 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
               },
             ),
             const DataColumn(
-              label: Text('Success'),
+              label: Text(
+                'Success',
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
           rows: const []),
@@ -128,7 +144,8 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
                 Modular.to.pushNamed('/page1', arguments: item);
               },
               cells: [
-                DataCell(SizedBox(width: 50, child: Image.network(item.image))),
+                DataCell(SizedBox(
+                    width: 50, child: Image.network(item.image['small']!))),
                 DataCell(SizedBox(
                     width: 70,
                     child: Text(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:testing/display/information_launch.dart';
-import 'bloc/launch_bloc.dart';
+import 'bloc/launch_bloc/launch_bloc.dart';
 import 'display/homepage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   return runApp(ModularApp(module: AppModule(), child: const MyApp()));
 }
 
@@ -35,6 +36,9 @@ class AppModule extends Module {
   @override
   void routes(r) {
     r.child('/', child: (context) => const HomePage());
-    r.child('/page1', child: (context) => const InformationPage());
+    r.child('/page1',
+        child: (context) => InformationPage(
+              launch: r.args.data,
+            ));
   }
 }

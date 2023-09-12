@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../API/launch_fecth.dart';
-import '../model/launch_model.dart';
+import '../../API/data_repository.dart';
+import '../../model/launch_model.dart';
 
 part 'launch_event.dart';
 part 'launch_state.dart';

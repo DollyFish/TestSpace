@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/launch_bloc.dart';
+import '../bloc/launch_bloc/launch_bloc.dart';
 import '../model/launch_model.dart';
 import 'display_list.dart';
 
