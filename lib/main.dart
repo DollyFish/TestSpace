@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import 'model/ship_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/launch_bloc.dart';
+import 'display/display_list.dart';
+import 'model/launch_model.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,19 +11,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('SpaceX'),
-        ),
-        body: const MyStatefulWidget(),
-      ),
-    );
+    return BlocProvider(
+        create: (context) => LaunchBloc()..add(LaunchRequest()),
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            useMaterial3: true,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            appBar: AppBar(
+              title: const Text('SpaceX'),
+            ),
+            body: const SingleChildScrollView(child: MyStatefulWidget()),
+          ),
+        ));
   }
 }
 
@@ -34,92 +37,28 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  List<Ship> data = [
-    Ship("FalconSat", "2006-03-24T22:30:00.000Z",
-        "https://images2.imgbox.com/94/f2/NN6Ph45r_o.png", false)
-  ];
+  List<Launch> data = [];
   List<dynamic> filteredData = [];
-
-  final searchController = TextEditingController();
-
-  @override
-  void initState() {
-    filteredData = data;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
-
-  void _onSearchTextChanged(String text) {
-    setState(() {
-      filteredData = text.isEmpty
-          ? data
-          : data
-              .where((item) =>
-                  item.name.toLowerCase().contains(text.toLowerCase()))
-              .toList();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextField(
-          controller: searchController,
-          decoration: const InputDecoration(
-            hintText: 'Search...',
-            border: OutlineInputBorder(),
-          ),
-          onChanged: _onSearchTextChanged,
-        ),
-      ),
-      SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(
-          // width: double.infinity,
-          child: DataTable(
-            columnSpacing: 30,
-            columns: const <DataColumn>[
-              DataColumn(label: Text('Icon')),
-              DataColumn(
-                label: Text('Name'),
-              ),
-              DataColumn(
-                label: Text('Launch Date'),
-                numeric: true,
-              ),
-              DataColumn(
-                label: Text('Success'),
-              ),
-            ],
-            rows: List.generate(filteredData.length, (index) {
-              final Ship item = filteredData[index];
-              return DataRow(
-                cells: [
-                  DataCell(SizedBox(
-                    width: 50,
-                    child: Image.network(item.image),
-                  )),
-                  DataCell(Text(item.name)),
-                  DataCell(Text(DateFormat('yyyy-MM-dd')
-                      .format(DateTime.parse(item.time)))),
-                  DataCell(Text(
-                    item.success ? 'success' : 'fail',
-                    style: TextStyle(
-                        color: item.success ? Colors.green : Colors.red),
-                  )),
-                ],
-              );
-            }),
-          ),
-        ),
-      ),
-    ]);
+    return BlocBuilder<LaunchBloc, LaunchState>(
+      builder: (context, state) {
+        if (state is LaunchLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is LaunchError) {
+          return Center(
+            child: Text("Something went wrong ${state.message}"),
+          );
+        } else if (state is LaunchLoaded) {
+          data = state.launch;
+          return DisplayLaunchList(data: data);
+        } else {
+          return Container();
+        }
+      },
+    );
   }
 }
