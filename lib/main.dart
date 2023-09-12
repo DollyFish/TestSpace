@@ -1,64 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:testing/display/information_launch.dart';
 import 'bloc/launch_bloc.dart';
-import 'display/display_list.dart';
-import 'model/launch_model.dart';
+import 'display/homepage.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  return runApp(ModularApp(module: AppModule(), child: const MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Modular.setInitialRoute('/');
     return BlocProvider(
         create: (context) => LaunchBloc()..add(LaunchRequest()),
-        child: MaterialApp(
+        child: MaterialApp.router(
           title: 'Flutter Demo',
           theme: ThemeData(
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            appBar: AppBar(
-              title: const Text('SpaceX'),
-            ),
-            body: const SingleChildScrollView(child: MyStatefulWidget()),
-          ),
+          routerConfig: Modular.routerConfig,
         ));
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+class AppModule extends Module {
+  @override
+  void binds(i) {}
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  List<Launch> data = [];
-  List<dynamic> filteredData = [];
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LaunchBloc, LaunchState>(
-      builder: (context, state) {
-        if (state is LaunchLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is LaunchError) {
-          return Center(
-            child: Text("Something went wrong ${state.message}"),
-          );
-        } else if (state is LaunchLoaded) {
-          data = state.launch;
-          return DisplayLaunchList(data: data);
-        } else {
-          return Container();
-        }
-      },
-    );
+  void routes(r) {
+    r.child('/', child: (context) => const HomePage());
+    r.child('/page1', child: (context) => const InformationPage());
   }
 }

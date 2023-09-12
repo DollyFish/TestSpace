@@ -18,6 +18,7 @@ dependencies:
   flutter_modular: ^6.3.2
   cupertino_icons: ^1.0.2
   intl: ^0.18.1
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

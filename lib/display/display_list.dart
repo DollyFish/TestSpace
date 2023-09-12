@@ -1,4 +1,6 @@
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
 import '../model/launch_model.dart';
@@ -55,11 +57,8 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
           onChanged: _onSearchTextChanged,
         ),
       ),
-      SizedBox(
-        width: double.infinity,
-        child: DataTable(
+      DataTable(
           columnSpacing: 22,
-          dataRowHeight: 80,
           sortColumnIndex: _currentSortColumn,
           sortAscending: _isAscending,
           columns: <DataColumn>[
@@ -104,14 +103,32 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
               label: Text('Success'),
             ),
           ],
+          rows: const []),
+      Expanded(
+          child: SizedBox(
+              child: SingleChildScrollView(
+        child: DataTable(
+          columnSpacing: 22,
+          dataRowMinHeight: 50,
+          dataRowMaxHeight: 100,
+          showCheckboxColumn: false,
+          // sortColumnIndex: _currentSortColumn,
+          // sortAscending: _isAscending,
+          headingRowHeight: 0,
+          columns: List.generate(
+              4,
+              (index) =>
+                  const DataColumn(label: Text(''))), // GENERATE EMPTY COLUMNS
+          // SHRINK THE HEADER
+
           rows: List.generate(filteredData.length, (index) {
             final Launch item = filteredData[index];
             return DataRow(
+              onSelectChanged: (value) {
+                Modular.to.pushNamed('/page1', arguments: item);
+              },
               cells: [
-                DataCell(SizedBox(
-                  width: 50,
-                  child: Image.network(item.image),
-                )),
+                DataCell(SizedBox(width: 50, child: Image.network(item.image))),
                 DataCell(SizedBox(
                     width: 70,
                     child: Text(
@@ -132,7 +149,15 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
             );
           }),
         ),
-      ),
+      ))),
     ]);
   }
 }
+
+// CachedNetworkImage(
+// imageUrl: filteredData[index].image,
+// placeholder: (context, url) =>
+// const CircularProgressIndicator(),
+// errorWidget: (context, url, error) =>
+// const Icon(Icons.error),
+// ),
