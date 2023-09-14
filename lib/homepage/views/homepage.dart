@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:testing/API/data_repository.dart';
-
-import '../bloc/launch_bloc/launch_bloc.dart';
-import '../model/launch_model.dart';
-import 'display_list.dart';
+import '../bloc/launch_bloc.dart';
+import '../models/launch_model.dart';
+import 'widgets/display_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

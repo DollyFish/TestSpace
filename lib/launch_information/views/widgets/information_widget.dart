@@ -1,66 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:testing/model/rocket_model.dart';
-import '../bloc/information_bloc/information_bloc.dart';
-import '../model/crew_model.dart';
-import '../model/launch_model.dart';
-import '../model/launchpad_model.dart';
+import 'package:testing/launch_information/models/rocket_model.dart';
 
-class InformationPage extends StatefulWidget {
-  final Launch launch;
-  const InformationPage({super.key, required this.launch});
-
-  @override
-  State<InformationPage> createState() => _InformationPageState();
-}
-
-class _InformationPageState extends State<InformationPage> {
-  @override
-  void initState() {
-    BlocProvider.of<InformationBloc>(context).add(
-      InformationRequest(
-        rocketID: widget.launch.rocketID,
-        crewList: widget.launch.crew,
-        launchpadID: widget.launch.launchpadID,
-      ),
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Information'),
-      ),
-      body: BlocBuilder<InformationBloc, InformationState>(
-        buildWhen: (previous, current) => previous.loading != current.loading,
-        builder: (context, state) {
-          if (state.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (!state.loading) {
-            return InformationBody(
-              launch: widget.launch,
-              rocket: state.rocket,
-              crew: state.crew,
-              launchpad: state.launchpad,
-            );
-          } else {
-            return Container();
-          }
-        },
-      ),
-    );
-  }
-}
+import '../../../homepage/models/launch_model.dart';
+import '../../models/crew_model.dart';
+import '../../models/launchpad_model.dart';
 
 class InformationBody extends StatefulWidget {
   final Launch launch;

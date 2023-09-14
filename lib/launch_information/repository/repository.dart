@@ -1,27 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import '../model/crew_model.dart';
-import '../model/launch_model.dart';
-import '../model/launchpad_model.dart';
-import '../model/rocket_model.dart';
-import 'data_provider.dart';
 
-// get launch data
-class LaunchRepository {
-  final LaunchDataProvider launchDataProvider = LaunchDataProvider();
+import '../models/crew_model.dart';
+import '../models/launchpad_model.dart';
+import '../models/rocket_model.dart';
 
-  Future<List<Launch>> getLaunch() async {
-    final http.Response rawLaunch = await launchDataProvider.getRawLaunchData();
-    final json = await jsonDecode(rawLaunch.body);
-    List<Launch> launchList = [];
-    for (var itemJson in json) {
-      launchList.add(Launch.fromJson(itemJson));
-    }
-
-    return launchList;
-  }
-}
+part 'provider.dart';
 
 // get rocket data
 class RocketRepository {

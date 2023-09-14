@@ -1,15 +1,4 @@
-import 'package:http/http.dart' as http;
-
-// get launch data
-class LaunchDataProvider {
-  Future<http.Response> getRawLaunchData() async {
-    http.Response rawLaunchData = await http.get(
-      Uri.parse("https://api.spacexdata.com/latest/launches/past"),
-    );
-
-    return rawLaunchData;
-  }
-}
+part of 'repository.dart';
 
 // get rocket data
 class RocketDataProvider {

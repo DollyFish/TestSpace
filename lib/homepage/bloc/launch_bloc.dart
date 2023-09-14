@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../API/data_repository.dart';
-import '../../model/launch_model.dart';
+import '../repository/repository.dart';
+import '../models/launch_model.dart';
 
 part 'launch_event.dart';
 part 'launch_state.dart';

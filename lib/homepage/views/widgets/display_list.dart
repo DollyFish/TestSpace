@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
-import '../model/launch_model.dart';
+import '../../models/launch_model.dart';
 
 class DisplayLaunchList extends StatefulWidget {
   final List<Launch> data;
@@ -30,13 +30,15 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
   }
 
   void _onSearchTextChanged(String text) {
-    setState(() {
-      filteredData = text.isEmpty
-          ? widget.data
-          : widget.data
-              .where((item) =>
-                  item.name.toLowerCase().contains(text.toLowerCase()))
-              .toList();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        filteredData = text.isEmpty
+            ? widget.data
+            : widget.data
+                .where((item) =>
+                    item.name.toLowerCase().contains(text.toLowerCase()))
+                .toList();
+      });
     });
   }
 

@@ -2,11 +2,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:testing/API/data_repository.dart';
-import 'package:testing/bloc/information_bloc/information_bloc.dart';
-import 'package:testing/model/crew_model.dart';
-import 'package:testing/model/launchpad_model.dart';
-import 'package:testing/model/rocket_model.dart';
+import 'package:testing/launch_information/bloc/information_bloc.dart';
+import 'package:testing/launch_information/models/crew_model.dart';
+import 'package:testing/launch_information/models/launchpad_model.dart';
+import 'package:testing/launch_information/models/rocket_model.dart';
+import 'package:testing/launch_information/repository/repository.dart';
 
 void main() {
   late InformationBloc informationBloc;

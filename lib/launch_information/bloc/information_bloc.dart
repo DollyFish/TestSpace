@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../API/data_repository.dart';
-import '../../model/crew_model.dart';
-import '../../model/launch_model.dart';
-import '../../model/launchpad_model.dart';
-import '../../model/rocket_model.dart';
+import '../../homepage/repository/repository.dart';
+import '../models/crew_model.dart';
+import '../models/launchpad_model.dart';
+import '../models/rocket_model.dart';
+import '../repository/repository.dart';
 
 part 'information_event.dart';
 part 'information_state.dart';
