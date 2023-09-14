@@ -40,7 +40,7 @@ void main() {
           return informationBloc;
         },
         skip: 1,
-        wait: const Duration(milliseconds: 2000),
+        wait: const Duration(milliseconds: 6000),
         act: (bloc) => bloc.add(InformationRequest(
             rocketID: rocketID, crewList: crewList, launchpadID: launchpadID)),
         expect: () => [

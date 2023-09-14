@@ -46,6 +46,7 @@ class AppModule extends Module {
     );
     r.child(
       '/page1',
+      transition: TransitionType.leftToRight,
       child: (context) => BlocProvider(
         create: (context) => InformationBloc(
           RocketRepository(),

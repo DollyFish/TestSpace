@@ -46,9 +46,9 @@ class CrewRepository {
       return crewDataProvider.getRawCrewData(crewList[index]['crew']);
     }));
     List<Crew> crew = [];
-    for (var item in response) {
-      final json = await jsonDecode(item.body);
-      crew.add(Crew.fromJson(json));
+    for (int i = 0; i < response.length; i++) {
+      final json = await jsonDecode(response[i].body);
+      crew.add(Crew.fromJson(json, crewList[i]['role']));
     }
 
     return crew;

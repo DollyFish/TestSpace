@@ -13,6 +13,7 @@ class InformationState extends Equatable {
     required this.launchpad,
     this.loading = false,
   });
+
   InformationState copyWith({
     Rocket? rocket,
     List<Crew>? crew,

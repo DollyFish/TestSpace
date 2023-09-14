@@ -78,29 +78,108 @@ class InformationBody extends StatefulWidget {
 }
 
 class _InformationBodyState extends State<InformationBody> {
+  Widget printCrew() {
+    if (widget.crew.isEmpty) {
+      return containerStyle(const Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Crew:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text('No crew assigned to this launch'),
+          )
+        ],
+      ));
+    } else {
+      return containerStyle(Column(
+        children: [
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Crew:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          for (var i = 0; i < widget.crew.length; i++)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                  '${widget.crew[i].role}: ${widget.crew[i].name} - ${widget.crew[i].agency}'),
+            )
+        ],
+      ));
+    }
+  }
+
+  Widget containerStyle(widgetChild) {
+    return Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(width: 2, color: Colors.grey)),
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        child: widgetChild);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
         child: Column(
       children: [
-        SizedBox(
-          height: 200,
-          child: Image(image: NetworkImage(widget.launch.image['small'])),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            widget.launch.name,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-          ),
-        ),
-        Text('Rocket name: ${widget.rocket.name}'),
-        Text(widget.rocket.description),
-        Text('Launch name: ${widget.launch.name}'),
-        Text('Launchpad name: ${widget.launchpad.name}'),
-        Text(widget.crew.isNotEmpty
-            ? 'Crew: ${widget.crew[0].name}'
-            : 'Crew: No crew'),
+        containerStyle(Row(
+          children: [
+            SizedBox(
+              height: 100,
+              child: Image(image: NetworkImage(widget.launch.image['small'])),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 50),
+              child: Text(
+                widget.launch.name,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+            ),
+          ],
+        )),
+        containerStyle(Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Rocket: ${widget.rocket.name}',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Text(widget.rocket.description),
+          ],
+        )),
+        containerStyle(Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Launchpad: ${widget.launchpad.name}',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                  'Location: ${widget.launchpad.locality} - ${widget.launchpad.region}',
+                  textAlign: TextAlign.left),
+            ),
+          ],
+        )),
+        printCrew()
       ],
     ));
   }
