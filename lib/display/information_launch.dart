@@ -16,36 +16,46 @@ class InformationPage extends StatefulWidget {
 
 class _InformationPageState extends State<InformationPage> {
   @override
+  void initState() {
+    BlocProvider.of<InformationBloc>(context).add(
+      InformationRequest(
+        rocketID: widget.launch.rocketID,
+        crewList: widget.launch.crew,
+        launchpadID: widget.launch.launchpadID,
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) =>
-          InformationBloc()..add(InformationRequest(widget.launch)),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Information'),
-        ),
-        body: BlocBuilder<InformationBloc, InformationState>(
-          builder: (context, state) {
-            if (state is InformationLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is InformationError) {
-              return Center(
-                child: Text("Something went wrong ${state.message}"),
-              );
-            } else if (state is InformationLoaded) {
-              return InformationBody(
-                launch: widget.launch,
-                rocket: state.rocket,
-                crew: state.crew,
-                launchpad: state.launchpad,
-              );
-            } else {
-              return Container();
-            }
-          },
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Information'),
+      ),
+      body: BlocBuilder<InformationBloc, InformationState>(
+        buildWhen: (previous, current) => previous.loading != current.loading,
+        builder: (context, state) {
+          if (state.loading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (!state.loading) {
+            return InformationBody(
+              launch: widget.launch,
+              rocket: state.rocket,
+              crew: state.crew,
+              launchpad: state.launchpad,
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
@@ -60,7 +70,8 @@ class InformationBody extends StatefulWidget {
       {super.key,
       required this.launch,
       required this.rocket,
-      required this.crew, required this.launchpad});
+      required this.crew,
+      required this.launchpad});
 
   @override
   State<InformationBody> createState() => _InformationBodyState();

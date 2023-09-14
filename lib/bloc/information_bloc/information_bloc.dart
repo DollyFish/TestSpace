@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../API/data_repository.dart';
@@ -13,17 +14,39 @@ part 'information_event.dart';
 part 'information_state.dart';
 
 class InformationBloc extends Bloc<InformationEvent, InformationState> {
-  InformationBloc() : super(InformationInitial()) {
-    on<InformationRequest>((event, emit) async {
-      emit(InformationLoading());
-      final rocket = RocketRepository().getRocket(event.launch.rocketID);
-      final crew = CrewRepository().getCrew(event.launch.crew);
-      final launchpad =
-          LaunchpadRepository().getLaunchpad(event.launch.launchpadID);
-      await Future.wait([rocket, crew, launchpad]).then((value) {
-        emit(InformationLoaded(
-            value[0] as Rocket, value[1] as List<Crew>, value[2] as Launchpad));
-      });
+  InformationBloc(
+      this._rocketRepository, this._crewRepository, this._launchpadRepository)
+      : super(InformationState(
+            rocket: Rocket(), crew: const [], launchpad: Launchpad())) {
+    on<InformationRequest>(_onGetRequest);
+  }
+  final RocketRepository _rocketRepository;
+  final CrewRepository _crewRepository;
+  final LaunchpadRepository _launchpadRepository;
+
+  void _onGetRequest(
+    InformationRequest event,
+    Emitter<InformationState> emit,
+  ) async {
+    await _onInformationRequest(emit, event);
+  }
+
+  Future<void> _onInformationRequest(
+    Emitter<InformationState> emit,
+    InformationRequest event,
+  ) async {
+    emit(state.copyWith(loading: true));
+    final rocket = _rocketRepository.getRocket(event.rocketID);
+    final crew = _crewRepository.getCrew(event.crewList);
+    final launchpad = _launchpadRepository.getLaunchpad(event.launchpadID);
+
+    await Future.wait([rocket, crew, launchpad]).then((value) {
+      emit(state.copyWith(
+        rocket: value[0] as Rocket,
+        crew: value[1] as List<Crew>,
+        launchpad: value[2] as Launchpad,
+        loading: false,
+      ));
     });
   }
 }

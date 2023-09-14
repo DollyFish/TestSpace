@@ -6,18 +6,24 @@ class Launch {
   final String rocketID;
   final String launchpadID;
   final List crew;
-  Launch(this.name, this.time, this.image, this.success, this.rocketID,
-      this.launchpadID, this.crew);
+  Launch(
+      {this.name = '',
+      this.time = '',
+      this.image = const <String, dynamic>{},
+      this.success,
+      this.rocketID = '',
+      this.launchpadID = '',
+      this.crew = const <String>[]});
 
   factory Launch.fromJson(Map<String, dynamic> json) {
     return Launch(
-      json['name'],
-      json['date_utc'],
-      json['links']['patch'],
-      json['success'],
-      json['rocket'],
-      json['launchpad'],
-      json['crew'],
+      name: json['name'],
+      time: json['date_local'],
+      image: json['links']['patch'],
+      success: json['success'],
+      rocketID: json['rocket'],
+      launchpadID: json['launchpad'],
+      crew: json['crew'],
     );
   }
 }

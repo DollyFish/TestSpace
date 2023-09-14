@@ -1,22 +1,37 @@
 part of 'information_bloc.dart';
 
 @immutable
-abstract class InformationState {}
-
-class InformationInitial extends InformationState {}
-
-class InformationLoading extends InformationState {}
-
-class InformationLoaded extends InformationState {
+class InformationState extends Equatable {
   final Rocket rocket;
   final List<Crew> crew;
   final Launchpad launchpad;
+  final bool loading;
 
-  InformationLoaded(this.rocket, this.crew, this.launchpad);
-}
+  const InformationState({
+    required this.rocket,
+    required this.crew,
+    required this.launchpad,
+    this.loading = false,
+  });
+  InformationState copyWith({
+    Rocket? rocket,
+    List<Crew>? crew,
+    Launchpad? launchpad,
+    bool? loading,
+  }) {
+    return InformationState(
+      rocket: rocket ?? this.rocket,
+      crew: crew ?? this.crew,
+      launchpad: launchpad ?? this.launchpad,
+      loading: loading ?? this.loading,
+    );
+  }
 
-class InformationError extends InformationState {
-  final String message;
-
-  InformationError(this.message);
+  @override
+  List<Object> get props => [
+        rocket,
+        crew,
+        launchpad,
+        loading,
+      ];
 }

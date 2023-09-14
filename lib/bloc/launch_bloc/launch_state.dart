@@ -1,20 +1,26 @@
 part of 'launch_bloc.dart';
 
 @immutable
-abstract class LaunchState {}
-
-class LaunchInitial extends LaunchState {}
-
-class LaunchLoading extends LaunchState {}
-
-class LaunchLoaded extends LaunchState {
+class LaunchState extends Equatable {
   final List<Launch> launch;
+  final bool loading;
+  const LaunchState({
+    required this.launch,
+    this.loading = false,
+  });
+  LaunchState copyWith({
+    List<Launch>? launch,
+    bool? loading,
+  }) {
+    return LaunchState(
+      launch: launch ?? this.launch,
+      loading: loading ?? this.loading,
+    );
+  }
 
-  LaunchLoaded(this.launch);
-}
-
-class LaunchError extends LaunchState {
-  final String message;
-
-  LaunchError(this.message);
+  @override
+  List<Object> get props => [
+        launch,
+        loading,
+      ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:testing/API/data_repository.dart';
 
 import '../bloc/launch_bloc/launch_bloc.dart';
 import '../model/launch_model.dart';
@@ -14,7 +15,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Launch> data = [];
-  List<dynamic> filteredData = [];
+
+  @override
+  void initState() {
+    BlocProvider.of<LaunchBloc>(context).add(const LaunchRequest());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +29,13 @@ class _HomePageState extends State<HomePage> {
           title: const Text('SpaceX'),
         ),
         body: BlocBuilder<LaunchBloc, LaunchState>(
+          buildWhen: (previous, current) => previous.loading != current.loading,
           builder: (context, state) {
-            if (state is LaunchLoading) {
+            if (state.loading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is LaunchError) {
-              return Center(
-                child: Text("Something went wrong ${state.message}"),
-              );
-            } else if (state is LaunchLoaded) {
+            } else if (!state.loading) {
               data = state.launch;
               return DisplayLaunchList(data: data);
             } else {

@@ -1,6 +1,14 @@
 part of 'launch_bloc.dart';
 
 @immutable
-abstract class LaunchEvent {}
+class LaunchRequest extends LaunchEvent {
+  const LaunchRequest();
+}
 
-class LaunchRequest extends LaunchEvent {}
+abstract class LaunchEvent extends Equatable {
+  const LaunchEvent();
+  // coverage:ignore-start
+  @override
+  List<Object> get props => [];
+  // coverage:ignore-end
+}

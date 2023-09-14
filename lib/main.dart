@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:testing/display/information_launch.dart';
+import 'API/data_repository.dart';
+import 'bloc/information_bloc/information_bloc.dart';
 import 'bloc/launch_bloc/launch_bloc.dart';
 import 'display/homepage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -16,16 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Modular.setInitialRoute('/');
-    return BlocProvider(
-        create: (context) => LaunchBloc()..add(LaunchRequest()),
-        child: MaterialApp.router(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
-          debugShowCheckedModeBanner: false,
-          routerConfig: Modular.routerConfig,
-        ));
+    return MaterialApp.router(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      debugShowCheckedModeBanner: false,
+      routerConfig: Modular.routerConfig,
+    );
   }
 }
 
@@ -35,10 +35,27 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.child('/', child: (context) => const HomePage());
-    r.child('/page1',
-        child: (context) => InformationPage(
-              launch: r.args.data,
-            ));
+    r.child(
+      '/',
+      child: (context) => BlocProvider(
+        create: (context) => LaunchBloc(
+          LaunchRepository(),
+        ),
+        child: const HomePage(),
+      ),
+    );
+    r.child(
+      '/page1',
+      child: (context) => BlocProvider(
+        create: (context) => InformationBloc(
+          RocketRepository(),
+          CrewRepository(),
+          LaunchpadRepository(),
+        ),
+        child: InformationPage(
+          launch: r.args.data,
+        ),
+      ),
+    );
   }
 }

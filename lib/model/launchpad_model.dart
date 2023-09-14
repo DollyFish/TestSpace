@@ -4,13 +4,17 @@ class Launchpad {
   final String locality;
   final String region;
 
-  Launchpad(this.name, this.locality, this.region);
+  Launchpad({
+    this.name = '',
+    this.locality = '',
+    this.region = '',
+  });
 
   factory Launchpad.fromJson(Map<String, dynamic> json) {
     return Launchpad(
-      json['name'],
-      json['locality'],
-      json['region'],
+      name: json['name'],
+      locality: json['locality'],
+      region: json['region'],
     );
   }
 }

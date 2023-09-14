@@ -6,18 +6,23 @@ class Rocket {
   final Map<String, dynamic> height;
   final Map<String, dynamic> mass;
 
-  Rocket(this.name, this.country, this.company, this.description, this.height,
-      this.mass);
+  Rocket(
+      {this.name = '',
+      this.country = '',
+      this.company = '',
+      this.description = '',
+      this.height = const <String, dynamic>{},
+      this.mass = const <String, dynamic>{}});
 
   // create get data from json function
   factory Rocket.fromJson(Map<String, dynamic> json) {
     return Rocket(
-      json['name'],
-      json['country'],
-      json['company'],
-      json['description'],
-      json['height'],
-      json['mass'],
+      name: json['name'],
+      country: json['country'],
+      company: json['company'],
+      description: json['description'],
+      height: json['height'],
+      mass: json['mass'],
     );
   }
 }

@@ -1,4 +1,4 @@
-// import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
@@ -145,7 +145,15 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
               },
               cells: [
                 DataCell(SizedBox(
-                    width: 50, child: Image.network(item.image['small']!))),
+                  width: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: filteredData[index].image['small'],
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                )),
                 DataCell(SizedBox(
                     width: 70,
                     child: Text(
