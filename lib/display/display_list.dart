@@ -160,8 +160,13 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
                       item.name,
                       overflow: TextOverflow.clip,
                     ))),
-                DataCell(Text(DateFormat('dd/MM/yyyy')
-                    .format(DateTime.parse(item.time)))),
+                DataCell(
+                  Text(
+                    DateFormat('dd/MM/yyyy').format(
+                      DateTime.parse(item.time),
+                    ),
+                  ),
+                ),
                 if (item.success != null)
                   DataCell(Text(
                     item.success! ? 'success' : 'fail',

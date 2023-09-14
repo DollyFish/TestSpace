@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:testing/model/rocket_model.dart';
 import '../bloc/information_bloc/information_bloc.dart';
 import '../model/crew_model.dart';
@@ -138,12 +139,13 @@ class _InformationBodyState extends State<InformationBody> {
               height: 100,
               child: Image(image: NetworkImage(widget.launch.image['small'])),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Text(
-                widget.launch.name,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            Expanded(
+              child: Center(
+                child: Text(
+                  widget.launch.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 25),
+                ),
               ),
             ),
           ],

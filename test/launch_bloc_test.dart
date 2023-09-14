@@ -27,7 +27,6 @@ void main() {
           return launchBloc;
         },
         skip: 1,
-        wait: const Duration(milliseconds: 6000),
         act: (bloc) => bloc.add(const LaunchRequest()),
         expect: () => [
               launchBloc.state.copyWith(loading: false, launch: [mockLaunch])
