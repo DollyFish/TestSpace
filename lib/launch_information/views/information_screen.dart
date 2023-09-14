@@ -28,6 +28,7 @@ class _InformationPageState extends State<InformationPage> {
 
   @override
   void dispose() {
+    BlocProvider.of<InformationBloc>(context).close();
     super.dispose();
   }
 

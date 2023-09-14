@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:testing/launch_information/views/information_screen.dart';
+
 import 'homepage/repository/repository.dart';
 import 'launch_information/bloc/information_bloc.dart';
 import 'homepage/bloc/launch_bloc.dart';
 import 'homepage/views/homepage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
 import 'launch_information/repository/repository.dart';
 
 void main() {
