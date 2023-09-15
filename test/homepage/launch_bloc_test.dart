@@ -28,7 +28,7 @@ void main() {
         },
         act: (bloc) => bloc.add(const LaunchRequest()),
         expect: () => [
-              launchBloc.state.copyWith(loading: true, laun ch: const []),
+              launchBloc.state.copyWith(loading: true, launch: const []),
               launchBloc.state.copyWith(launch: [mockLaunch])
             ]);
   }); // group
