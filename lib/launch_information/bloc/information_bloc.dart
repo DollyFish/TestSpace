@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../homepage/repository/repository.dart';
 import '../models/crew_model.dart';
 import '../models/launchpad_model.dart';
 import '../models/rocket_model.dart';
@@ -16,8 +15,8 @@ part 'information_state.dart';
 class InformationBloc extends Bloc<InformationEvent, InformationState> {
   InformationBloc(
       this._rocketRepository, this._crewRepository, this._launchpadRepository)
-      : super(InformationState(
-            rocket: Rocket(), crew: const [], launchpad: Launchpad())) {
+      : super(const InformationState(
+            rocket: Rocket(), crew: [], launchpad: Launchpad())) {
     on<InformationRequest>(_onGetRequest);
   }
   final RocketRepository _rocketRepository;

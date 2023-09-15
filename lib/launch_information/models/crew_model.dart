@@ -1,9 +1,11 @@
-class Crew {
+import 'package:equatable/equatable.dart';
+
+class Crew extends Equatable {
   final String name;
   final String agency;
   final String role;
 
-  Crew({
+  const Crew({
     this.name = '',
     this.agency = '',
     this.role = '',
@@ -16,4 +18,11 @@ class Crew {
       role: role,
     );
   }
+
+  @override
+  List<Object> get props => [
+        name,
+        agency,
+        role,
+      ];
 }

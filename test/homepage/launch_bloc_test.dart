@@ -26,14 +26,14 @@ void main() {
               .thenAnswer((_) => Future.value([mockLaunch]));
           return launchBloc;
         },
-        skip: 1,
         act: (bloc) => bloc.add(const LaunchRequest()),
         expect: () => [
-              launchBloc.state.copyWith(loading: false, launch: [mockLaunch])
+              launchBloc.state.copyWith(loading: true, laun ch: const []),
+              launchBloc.state.copyWith(launch: [mockLaunch])
             ]);
   }); // group
 }
 
 class MockLaunchRepository extends Mock implements LaunchRepository {}
 
-final Launch mockLaunch = Launch();
+const Launch mockLaunch = Launch();

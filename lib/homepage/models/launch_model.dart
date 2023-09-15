@@ -1,4 +1,6 @@
-class Launch {
+import 'package:equatable/equatable.dart';
+
+class Launch extends Equatable {
   final String name;
   final String time;
   final Map<String, dynamic> image;
@@ -6,7 +8,7 @@ class Launch {
   final String rocketID;
   final String launchpadID;
   final List crew;
-  Launch(
+  const Launch(
       {this.name = '',
       this.time = '',
       this.image = const <String, dynamic>{},
@@ -26,4 +28,14 @@ class Launch {
       crew: json['crew'],
     );
   }
+
+  @override
+  List<Object> get props => [
+        name,
+        time,
+        image,
+        rocketID,
+        launchpadID,
+        crew,
+      ];
 }

@@ -332,7 +332,7 @@ packages:
     source: hosted
     version: "0.2.0"
   meta:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: meta
       sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
@@ -356,7 +356,7 @@ packages:
     source: hosted
     version: "1.0.0"
   modular_core:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: modular_core
       sha256: "5baaa460ac9d85d457d6864ef41a2194b8115a6bdeb585a684789f2d9004c892"

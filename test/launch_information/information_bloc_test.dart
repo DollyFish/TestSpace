@@ -39,11 +39,15 @@ void main() {
               .thenAnswer((_) => Future.value(mockLaunchpad));
           return informationBloc;
         },
-        skip: 1,
-        wait: const Duration(milliseconds: 6000),
         act: (bloc) => bloc.add(InformationRequest(
             rocketID: rocketID, crewList: crewList, launchpadID: launchpadID)),
         expect: () => [
+              informationBloc.state.copyWith(
+                rocket: const Rocket(),
+                crew: const [],
+                launchpad: const Launchpad(),
+                loading: true,
+              ),
               informationBloc.state.copyWith(
                 rocket: mockRocket,
                 crew: mockCrew,
@@ -86,11 +90,11 @@ class MockCrewRepository extends Mock implements CrewRepository {}
 
 class MockLaunchpadRepository extends Mock implements LaunchpadRepository {}
 
-final Rocket mockRocket = Rocket();
+const Rocket mockRocket = Rocket();
 
 final List<Crew> mockCrew = [];
 
-final Launchpad mockLaunchpad = Launchpad();
+const Launchpad mockLaunchpad = Launchpad();
 
 const String rocketID = "5e9d0d95eda69973a809d1ec";
 

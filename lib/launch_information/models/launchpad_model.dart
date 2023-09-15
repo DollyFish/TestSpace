@@ -1,10 +1,12 @@
 //create class launchpad_model
-class Launchpad {
+import 'package:equatable/equatable.dart';
+
+class Launchpad extends Equatable {
   final String name;
   final String locality;
   final String region;
 
-  Launchpad({
+  const Launchpad({
     this.name = '',
     this.locality = '',
     this.region = '',
@@ -17,4 +19,11 @@ class Launchpad {
       region: json['region'],
     );
   }
+
+  @override
+  List<Object> get props => [
+        name,
+        locality,
+        region,
+      ];
 }

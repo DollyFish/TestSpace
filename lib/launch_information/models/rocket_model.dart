@@ -1,9 +1,11 @@
-class Rocket {
+import 'package:equatable/equatable.dart';
+
+class Rocket extends Equatable {
   final String name;
   final String company;
   final String description;
 
-  Rocket({
+  const Rocket({
     this.name = '',
     this.company = '',
     this.description = '',
@@ -17,4 +19,11 @@ class Rocket {
       description: json['description'],
     );
   }
+
+  @override
+  List<Object> get props => [
+        name,
+        company,
+        description,
+      ];
 }
