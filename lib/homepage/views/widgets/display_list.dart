@@ -149,7 +149,7 @@ class _DisplayLaunchListState extends State<DisplayLaunchList> {
                 DataCell(SizedBox(
                   width: 50,
                   child: CachedNetworkImage(
-                    imageUrl: filteredData[index].image['small'],
+                    imageUrl: filteredData[index].image['small']!,
                     placeholder: (context, url) =>
                         const CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>

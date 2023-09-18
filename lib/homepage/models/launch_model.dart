@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class Launch extends Equatable {
   final String name;
   final String time;
-  final Map<String, dynamic> image;
+  final Map image;
   final bool? success;
   final String rocketID;
   final String launchpadID;
@@ -11,13 +11,13 @@ class Launch extends Equatable {
   const Launch(
       {this.name = '',
       this.time = '',
-      this.image = const <String, dynamic>{},
+      this.image = const {},
       this.success,
       this.rocketID = '',
       this.launchpadID = '',
       this.crew = const <String>[]});
 
-  factory Launch.fromJson(Map<String, dynamic> json) {
+  factory Launch.fromJson(Map json) {
     return Launch(
       name: json['name'],
       time: json['date_local'],

@@ -80,7 +80,7 @@ class _InformationBodyState extends State<InformationBody> {
           children: [
             SizedBox(
               height: 100,
-              child: Image(image: NetworkImage(widget.launch.image['small'])),
+              child: Image(image: NetworkImage(widget.launch.image['small']!)),
             ),
             Expanded(
               child: Center(

@@ -50,7 +50,7 @@ packages:
     source: hosted
     version: "8.1.2"
   bloc_test:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: bloc_test
       sha256: af0de1a1e16a7536e95dcd7491e0a6d6078e11d2d691988e862280b74f5c7968
@@ -348,7 +348,7 @@ packages:
     source: hosted
     version: "1.0.4"
   mocktail:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: mocktail
       sha256: "9503969a7c2c78c7292022c70c0289ed6241df7a9ba720010c0b215af29a5a58"
