@@ -103,29 +103,25 @@ class AppModule extends Module {
       ChildRoute(
         '/setting',
         transition: TransitionType.leftToRight,
-        child: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => LanguageCubit(),
-            ),
-          ],
+        child: (context) => BlocProvider(
+          create: (context) => LanguageCubit(),
           child: const Setting(),
         ),
       ),
+      ChildRoute(
+        '/information',
+        transition: TransitionType.leftToRight,
+        child: (context) => BlocProvider(
+          create: (context) => InformationBloc(
+            RocketRepository(),
+            CrewRepository(),
+            LaunchpadRepository(),
+          ),
+          child: InformationPage(
+            launch: r.args.data,
+          ),
+        ),
+      )
     ]);
-    r.child(
-      '/information',
-      transition: TransitionType.leftToRight,
-      child: (context) => BlocProvider(
-        create: (context) => InformationBloc(
-          RocketRepository(),
-          CrewRepository(),
-          LaunchpadRepository(),
-        ),
-        child: InformationPage(
-          launch: r.args.data,
-        ),
-      ),
-    );
   }
 }
