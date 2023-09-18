@@ -10,12 +10,22 @@ import 'package:testing/launch_information/bloc/information_bloc.dart';
 import 'package:testing/launch_information/repository/repository.dart';
 import 'package:testing/launch_information/views/information_screen.dart';
 import 'package:testing/setting/bloc/language_cubit.dart';
-import 'package:testing/setting/constance/language_constance.dart';
+import 'package:testing/utility/language.dart';
 import 'package:testing/setting/view/setting.dart';
+import 'package:testing/theme/bloc/theme_cubit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  return runApp(ModularApp(module: AppModule(), child: const MyApp()));
+  return runApp(ModularApp(module: AppModule(), child: const StartApp()));
+}
+
+class StartApp extends StatelessWidget {
+  const StartApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(create: (_) => ThemeCubit(), child: const MyApp());
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -58,14 +68,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Modular.setInitialRoute('/list');
-    return MaterialApp.router(
-      supportedLocales: _localization.supportedLocales,
-      localizationsDelegates: _localization.localizationsDelegates,
-      title: 'Flutter Demo',
-      theme:
-          ThemeData(useMaterial3: true, fontFamily: _localization.fontFamily),
-      debugShowCheckedModeBanner: false,
-      routerConfig: Modular.routerConfig,
+    return BlocBuilder<ThemeCubit, ThemeData>(
+      builder: (_, theme) {
+        return MaterialApp.router(
+          supportedLocales: _localization.supportedLocales,
+          localizationsDelegates: _localization.localizationsDelegates,
+          title: 'SpaceX',
+          theme: theme,
+          debugShowCheckedModeBanner: false,
+          routerConfig: Modular.routerConfig,
+        );
+      },
     );
   }
 }
@@ -90,8 +103,12 @@ class AppModule extends Module {
       ChildRoute(
         '/setting',
         transition: TransitionType.leftToRight,
-        child: (context) => BlocProvider(
-          create: (context) => LanguageCubit(),
+        child: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => LanguageCubit(),
+            ),
+          ],
           child: const Setting(),
         ),
       ),

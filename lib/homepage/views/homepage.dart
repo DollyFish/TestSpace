@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:testing/setting/constance/language_constance.dart';
+import 'package:testing/utility/language.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -8,6 +8,7 @@ mixin AppLocale {
   static const String success = 'Success';
   static const String home = 'Home';
   static const String search = 'Search';
+  static const String theme = 'Dark Theme';
 
   static const Map<String, dynamic> en = {
     title: 'SpaceX',
@@ -19,6 +20,7 @@ mixin AppLocale {
     success: 'Success',
     home: 'Home',
     search: 'Search',
+    theme: 'Dark Theme',
   };
 
   static const Map<String, dynamic> th = {
@@ -31,5 +33,6 @@ mixin AppLocale {
     success: 'ความสำเร็จ',
     home: 'หน้าหลัก',
     search: 'ค้นหา',
+    theme: 'ธีมมืด',
   };
 }

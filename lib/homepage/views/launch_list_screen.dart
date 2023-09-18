@@ -4,7 +4,7 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:testing/homepage/bloc/launch_bloc.dart';
 import 'package:testing/homepage/models/launch_model.dart';
 import 'package:testing/homepage/views/widgets/display_list.dart';
-import 'package:testing/setting/constance/language_constance.dart';
+import 'package:testing/utility/language.dart';
 
 class LaunchListScreen extends StatefulWidget {
   const LaunchListScreen({super.key});
