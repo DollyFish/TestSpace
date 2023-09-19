@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "354591886485",
+    "project_id": "messagenoti-c61df",
+    "storage_bucket": "messagenoti-c61df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354591886485:android:c61ecfaac748dde5601f9c",
+        "android_client_info": {
+          "package_name": "com.example.firebase_play"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0ssncTMaf-GAdwXNEqeh3_LtU9fEjDi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354591886485:android:c659924e4b0faad8601f9c",
+        "android_client_info": {
+          "package_name": "com.example.spacex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0ssncTMaf-GAdwXNEqeh3_LtU9fEjDi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
