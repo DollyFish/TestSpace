@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -14,8 +15,13 @@ import 'package:testing/utility/language.dart';
 import 'package:testing/setting/view/setting.dart';
 import 'package:testing/theme/bloc/theme_cubit.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   return runApp(ModularApp(module: AppModule(), child: const StartApp()));
 }
 
