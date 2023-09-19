@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:testing/homepage/models/launch_model.dart';
+import 'package:testing/launch_information/models/crew_model.dart';
+import 'package:testing/launch_information/models/launchpad_model.dart';
 import 'package:testing/launch_information/models/rocket_model.dart';
-
-import '../../../homepage/models/launch_model.dart';
-import '../../models/crew_model.dart';
-import '../../models/launchpad_model.dart';
 
 class InformationBody extends StatefulWidget {
   final Launch launch;
@@ -62,70 +61,77 @@ class _InformationBodyState extends State<InformationBody> {
 
   Widget containerStyle(widgetChild) {
     return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(width: 2, color: Colors.grey)),
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(10),
-        child: widgetChild);
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(width: 2, color: Colors.grey),
+      ),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      child: widgetChild,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-      children: [
-        containerStyle(Row(
-          children: [
-            SizedBox(
-              height: 100,
-              child: Image(image: NetworkImage(widget.launch.image['small']!)),
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  widget.launch.name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 25),
+      child: Column(
+        children: [
+          containerStyle(Row(
+            children: [
+              SizedBox(
+                height: 100,
+                child: Image(
+                  image: NetworkImage(widget.launch.image['small']!),
                 ),
               ),
-            ),
-          ],
-        )),
-        containerStyle(Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Rocket: ${widget.rocket.name}',
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    widget.launch.name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 25),
+                  ),
+                ),
               ),
-            ),
-            Text(widget.rocket.description),
-          ],
-        )),
-        containerStyle(Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Launchpad: ${widget.launchpad.name}',
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ],
+          )),
+          containerStyle(Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Rocket: ${widget.rocket.name}',
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
+              Text(widget.rocket.description),
+            ],
+          )),
+          containerStyle(
+            Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Launchpad: ${widget.launchpad.name}',
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                      'Location: ${widget.launchpad.locality} - ${widget.launchpad.region}',
+                      textAlign: TextAlign.left),
+                ),
+              ],
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                  'Location: ${widget.launchpad.locality} - ${widget.launchpad.region}',
-                  textAlign: TextAlign.left),
-            ),
-          ],
-        )),
-        printCrew()
-      ],
-    ));
+          ),
+          printCrew()
+        ],
+      ),
+    );
   }
 }

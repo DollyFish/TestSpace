@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-
-import '../models/crew_model.dart';
-import '../models/launchpad_model.dart';
-import '../models/rocket_model.dart';
-import '../repository/repository.dart';
+import 'package:testing/launch_information/models/crew_model.dart';
+import 'package:testing/launch_information/models/launchpad_model.dart';
+import 'package:testing/launch_information/models/rocket_model.dart';
+import 'package:testing/launch_information/repository/repository.dart';
 
 part 'information_event.dart';
 part 'information_state.dart';

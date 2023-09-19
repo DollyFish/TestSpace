@@ -20,17 +20,19 @@ void main() {
       launchBloc.close();
     });
 
-    blocTest<LaunchBloc, LaunchState>('emit launch request event',
-        build: () {
-          when(() => launchRepository.getLaunch())
-              .thenAnswer((_) => Future.value([mockLaunch]));
-          return launchBloc;
-        },
-        act: (bloc) => bloc.add(const LaunchRequest()),
-        expect: () => [
-              launchBloc.state.copyWith(loading: true, launch: const []),
-              launchBloc.state.copyWith(launch: [mockLaunch])
-            ]);
+    blocTest<LaunchBloc, LaunchState>(
+      'emit launch request event',
+      build: () {
+        when(() => launchRepository.getLaunch())
+            .thenAnswer((_) => Future.value([mockLaunch]));
+        return launchBloc;
+      },
+      act: (bloc) => bloc.add(const LaunchRequest()),
+      expect: () => [
+        launchBloc.state.copyWith(loading: true, launch: const []),
+        launchBloc.state.copyWith(launch: [mockLaunch])
+      ],
+    );
   }); // group
 }
 

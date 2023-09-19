@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/information_bloc.dart';
-import '../../homepage/models/launch_model.dart';
-import 'widgets/information_widget.dart';
+import 'package:testing/homepage/models/launch_model.dart';
+import 'package:testing/launch_information/bloc/information_bloc.dart';
+import 'package:testing/launch_information/views/widgets/information_widget.dart';
 
 class InformationPage extends StatefulWidget {
   final Launch launch;

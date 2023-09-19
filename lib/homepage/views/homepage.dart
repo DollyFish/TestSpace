@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/launch_bloc.dart';
-import '../models/launch_model.dart';
-import 'widgets/display_list.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:testing/homepage/bloc/launch_bloc.dart';
+import 'package:testing/utility/language.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,34 +13,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Launch> data = [];
-
-  @override
-  void initState() {
-    BlocProvider.of<LaunchBloc>(context).add(const LaunchRequest());
-    super.initState();
-  }
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('SpaceX'),
-        ),
-        body: BlocBuilder<LaunchBloc, LaunchState>(
-          buildWhen: (previous, current) => previous.loading != current.loading,
-          builder: (context, state) {
-            if (state.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (!state.loading) {
-              data = state.launch;
-              return DisplayLaunchList(data: data);
-            } else {
-              return Container();
-            }
-          },
-        ));
+      body: const RouterOutlet(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: AppLocale.home.getString(context),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings),
+            label: AppLocale.setting.getString(context),
+          ),
+        ],
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          if (index == 0) {
+            Modular.to.navigate('/list');
+          } else if (index == 1) {
+            Modular.to.navigate('/setting');
+          }
+        },
+      ),
+    );
   }
 }
