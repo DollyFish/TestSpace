@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:testing/authentication/bloc/auth_bloc.dart';
+import 'package:testing/authentication/repository/auth_repository.dart';
+import 'package:testing/authentication/views/dashboard.dart';
 import 'package:testing/authentication/views/sign_in.dart';
 import 'package:testing/authentication/views/sign_up.dart';
 import 'package:testing/launch_information/bloc/information_bloc.dart';
@@ -117,49 +120,61 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.child('/', child: (context) => const HomePage(), children: [
-      ChildRoute(
-        '/signIn',
-        transition: TransitionType.rightToLeft,
-        child: (context) => const SignIn(),
-      ),
-      ChildRoute(
-        '/signUp',
-        transition: TransitionType.rightToLeft,
-        child: (context) => const SignUp(),
-      ),
-      ChildRoute(
-        '/list',
-        transition: TransitionType.rightToLeft,
-        child: (context) => BlocProvider(
-          create: (context) => LaunchBloc(
-            LaunchRepository(),
+    r.child('/',
+        child: (context) => RepositoryProvider(
+            create: (context) => AuthRepository(),
+            child: BlocProvider(
+                create: (context) => AuthBloc(
+                      authRepository:
+                          RepositoryProvider.of<AuthRepository>(context),
+                    ),
+                child: const HomePage())),
+        children: [
+          ChildRoute(
+            '/signIn',
+            transition: TransitionType.rightToLeft,
+            child: (context) => const SignIn(),
           ),
-          child: const LaunchListScreen(),
-        ),
-      ),
-      ChildRoute(
-        '/setting',
-        transition: TransitionType.leftToRight,
-        child: (context) => BlocProvider(
-          create: (context) => LanguageCubit(),
-          child: const Setting(),
-        ),
-      ),
-      ChildRoute(
-        '/information',
-        transition: TransitionType.leftToRight,
-        child: (context) => BlocProvider(
-          create: (context) => InformationBloc(
-            RocketRepository(),
-            CrewRepository(),
-            LaunchpadRepository(),
+          ChildRoute(
+            '/signUp',
+            transition: TransitionType.rightToLeft,
+            child: (context) => const SignUp(),
           ),
-          child: InformationPage(
-            launch: r.args.data,
+          ChildRoute('/dashboard',
+              transition: TransitionType.rightToLeft,
+              child: (context) => const Dashboard()),
+          ChildRoute(
+            '/list',
+            transition: TransitionType.rightToLeft,
+            child: (context) => BlocProvider(
+              create: (context) => LaunchBloc(
+                LaunchRepository(),
+              ),
+              child: const LaunchListScreen(),
+            ),
           ),
-        ),
-      )
-    ]);
+          ChildRoute(
+            '/setting',
+            transition: TransitionType.leftToRight,
+            child: (context) => BlocProvider(
+              create: (context) => LanguageCubit(),
+              child: const Setting(),
+            ),
+          ),
+          ChildRoute(
+            '/information',
+            transition: TransitionType.leftToRight,
+            child: (context) => BlocProvider(
+              create: (context) => InformationBloc(
+                RocketRepository(),
+                CrewRepository(),
+                LaunchpadRepository(),
+              ),
+              child: InformationPage(
+                launch: r.args.data,
+              ),
+            ),
+          )
+        ]);
   }
 }

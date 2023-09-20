@@ -6,7 +6,7 @@ import 'package:testing/launch_information/bloc/information_bloc.dart';
 import 'package:testing/launch_information/models/crew_model.dart';
 import 'package:testing/launch_information/models/launchpad_model.dart';
 import 'package:testing/launch_information/models/rocket_model.dart';
-import 'package:testing/launch_information/repository/repository.dart';
+import 'package:testing/launch_information/repository/information_repository.dart';
 
 void main() {
   late InformationBloc informationBloc;
