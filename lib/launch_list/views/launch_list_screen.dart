@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:testing/homepage/bloc/launch_bloc.dart';
-import 'package:testing/homepage/models/launch_model.dart';
-import 'package:testing/homepage/views/widgets/display_list.dart';
+import 'package:testing/launch_list/bloc/launch_bloc.dart';
+import 'package:testing/launch_list/models/launch_model.dart';
+import 'package:testing/launch_list/views/widgets/display_list.dart';
 import 'package:testing/utility/language.dart';
 
 class LaunchListScreen extends StatefulWidget {

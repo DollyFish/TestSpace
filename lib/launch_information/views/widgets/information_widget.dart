@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:testing/homepage/models/launch_model.dart';
 import 'package:testing/launch_information/models/crew_model.dart';
 import 'package:testing/launch_information/models/launchpad_model.dart';
 import 'package:testing/launch_information/models/rocket_model.dart';
+import 'package:testing/launch_list/models/launch_model.dart';
 
 class InformationBody extends StatefulWidget {
   final Launch launch;

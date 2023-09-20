@@ -1,4 +1,4 @@
-part of 'repository.dart';
+part of 'information_repository.dart';
 
 // get rocket data
 class RocketDataProvider {

@@ -4,7 +4,7 @@ import 'package:testing/launch_information/models/crew_model.dart';
 import 'package:testing/launch_information/models/launchpad_model.dart';
 import 'package:testing/launch_information/models/rocket_model.dart';
 
-part 'provider.dart';
+part 'information_provider.dart';
 
 // get rocket data
 class RocketRepository {

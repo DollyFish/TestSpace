@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:testing/homepage/models/launch_model.dart';
+import 'package:testing/launch_list/models/launch_model.dart';
 import 'package:testing/utility/language.dart';
 
 class DisplayLaunchList extends StatefulWidget {

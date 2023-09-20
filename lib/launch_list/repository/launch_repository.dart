@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:testing/homepage/models/launch_model.dart';
+import 'package:testing/launch_list/models/launch_model.dart';
 
 part 'launch_provider.dart';
 
