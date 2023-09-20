@@ -27,6 +27,10 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.settings),
             label: AppLocale.setting.getString(context),
           ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: AppLocale.signIn.getString(context),
+          ),
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.amber[800],
@@ -38,6 +42,8 @@ class _HomePageState extends State<HomePage> {
             Modular.to.navigate('/list');
           } else if (index == 1) {
             Modular.to.navigate('/setting');
+          } else if (index == 2) {
+            Modular.to.navigate('/signIn');
           }
         },
       ),

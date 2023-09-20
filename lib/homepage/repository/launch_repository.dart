@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:testing/homepage/models/launch_model.dart';
 
-part 'provider.dart';
+part 'launch_provider.dart';
 
 // get launch data
 class LaunchRepository {

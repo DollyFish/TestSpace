@@ -1,27 +1,44 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:testing/authentication/view/sign_in.dart';
+import 'package:testing/authentication/view/sign_up.dart';
 import 'package:testing/homepage/bloc/launch_bloc.dart';
-import 'package:testing/homepage/repository/repository.dart';
+import 'package:testing/homepage/repository/launch_repository.dart';
 import 'package:testing/homepage/views/homepage.dart';
 import 'package:testing/homepage/views/launch_list_screen.dart';
 import 'package:testing/launch_information/bloc/information_bloc.dart';
 import 'package:testing/launch_information/repository/repository.dart';
 import 'package:testing/launch_information/views/information_screen.dart';
+import 'package:testing/services/push_notification.dart';
+import 'package:testing/services/show_notification.dart';
 import 'package:testing/setting/bloc/language_cubit.dart';
 import 'package:testing/utility/language.dart';
 import 'package:testing/setting/view/setting.dart';
 import 'package:testing/theme/bloc/theme_cubit.dart';
-
 import 'firebase_options.dart';
 
+@pragma('vm:entry-point')
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+
+  debugPrint("FCMToken $fcmToken");
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  if (!kIsWeb) {
+    await setupFlutterNotifications();
+  }
+
   return runApp(ModularApp(module: AppModule(), child: const StartApp()));
 }
 
@@ -43,7 +60,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
-
+  final PushNotificationService pushNotificationService =
+      PushNotificationService();
   @override
   void initState() {
     _localization.init(
@@ -64,6 +82,10 @@ class _MyAppState extends State<MyApp> {
       initLanguageCode: 'en',
     );
     _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
+    pushNotificationService.initialise();
+    pushNotificationService.setupInteractedMessage(context);
+
     super.initState();
   }
 
@@ -96,6 +118,16 @@ class AppModule extends Module {
   @override
   void routes(r) {
     r.child('/', child: (context) => const HomePage(), children: [
+      ChildRoute(
+        '/signIn',
+        transition: TransitionType.rightToLeft,
+        child: (context) => const SignIn(),
+      ),
+      ChildRoute(
+        '/signUp',
+        transition: TransitionType.rightToLeft,
+        child: (context) => const SignUp(),
+      ),
       ChildRoute(
         '/list',
         transition: TransitionType.rightToLeft,

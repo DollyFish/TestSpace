@@ -1,4 +1,4 @@
-part of 'repository.dart';
+part of 'launch_repository.dart';
 
 // get launch data
 class LaunchDataProvider {

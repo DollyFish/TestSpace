@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:testing/homepage/models/launch_model.dart';
-import 'package:testing/homepage/repository/repository.dart';
+import 'package:testing/homepage/repository/launch_repository.dart';
 
 part 'launch_event.dart';
 part 'launch_state.dart';
